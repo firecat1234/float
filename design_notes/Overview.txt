@@ -1,0 +1,69 @@
+Overview & design notes
+
+Float: a latent-thought based learning agent designed to run on locally managed hardware with a focus on privacy. specialized in efficient latent modelling. augmented by external systems.
+
+Architecture: 
+    -Mistral Language Model, and/or Google pali+/gemma, OAI API, and openCV.
+    -Vector + graph data store for efficient, accurate and relevant world modelling.
+    -Tool calling: ETL, data augmentation, generation augmentation, and training and unit testing pipelines for predictive modelling or reinforcement learning
+        -Data management: intended to work with sparse data, compressing and expanding as needed to fit dynamic schema. 
+        -Error correction: maintaining and propagating confidence of observations for quick updating of understandings, and for filtering or converting to relevant data.
+    -Modular: built with the intention of having internal models and features be replacable with like pieces to ensure survival through hardware and software updates and internal epochs.
+    -Reasoning: using special tokens to reason in hidden layers for improved efficiency, a patience input parameter to limit the use of these tokens, and 
+    -Observational: Float learns about given topics, the user, or the world and uses this to build, augment, or correct world models.
+    -Proactive: Float can work asyncronously and agentically schedule and complete tasks, reach out to the user, and update understandings.
+    -Agentic: able to finitely re-call internal modules and 
+    -Privacy: locally managed, with encrypted memories and masked API calls to enable work in sensitive areas.
+
+    Specs: 
+        -hardware: 4070 -> 5090 (12-32gb for language and rl models); external (google and OAI) api calls for complex tasks (as tool)
+            -memory: a NAS backup, and considerable amount of storage (especially once agentic observation begins) will be necessary. 
+            -Google cloud integration could be very helpful, and renting + containerizing + deploying to cloud GPUs can be abstracted as a tool.
+        -embeddings: sentence transformers?
+        -tokenizer: custom with <bot> <eot> & <tool> special tokens (see: meta coconut), with interest in patch-based systems (meta BLT)
+            -interacting with the model's hidden layers and tokenization will require extra considerations during development.
+        -models: as above, a multi-modal and language specific model are desirable. leverage prompt chains with specific system prompts to pass information as needed.
+        -database: tools like postgreSQL+chromaDB, (or SQLite+weaviate) to provide a few specific functions
+            -tabular data: chat history (full history for direct access, can be accessed by float for quick search + embedding)
+            -specific embedded memories: proactively embeds pertinent details for quick retrieval in the future.
+                -embedding of learned knowledge in another, retrievable table.
+            -consistency: use of time stamps, data expiration, confidence and bias estimations are key to the learning function.
+            -graph networks: entries are presented as 'nodes' by default, with optional 'edges' to connect nodes with information about their relations.
+        -tool collection: defined inside of a 'tools' folder, simply collections of python functions and their input schema. basic tools for ETL, CV, external model requests, and web use.
+            -tool permissions: some tools will require user approval, as defined in the tool. this will pause the chain until input is received.
+        -backend:
+            -FastAPI: for async features, scalability, and documentation over alternatives.
+                -celery: asynchronous tool execution pipelines
+                -pydantic: schema validation
+            -visualization tools:
+                -chromaviewer, networkx, pyvis and pandas. 
+            -pytest to validate the structure before pushing updates.
+            -LMstudio (koboldcpp and ollama as alternatives) to serve the local model.
+        -frontend: 
+            -vue.js with potential change to react if a more complex and modular frontend is required.
+            -present thoughts/tools/approvals dynamically in the UI, in a right-sidebar. select a message from float to see the process, with a persistent streaming box at the bottom to display the most recent thought.
+                -use the special tokens to determine breakpoints.
+            -visualizations tab: 
+                -navigate away from chat to (perhaps chat persists in a sidebar) explore knowledge base.
+                -D3.js and/or plotly dash for interactive, dynamic views and mapping.
+        -security: encryption with AES-256 and Google Cloud KMS for key storage. SHA-256 hashing for data integrity.
+
+Minimum Viable Product:
+    -chat interface with knowledge augmentation.
+    -basic tool calls
+    -API integration
+    -unit tests and version control with branches for different improvements.
+
+Future Goals and Directions:
+    -accessibility and FOSS sharing.
+    -make tools closer to plugins for a modular ecosystem. 
+    -discord.py, flutter, and ngrok for remote access and mobile app.
+    -streaming input, like advanced voice mode, for real-time data (compute bottleneck).
+    -deep-Q networks and simulated (or just virtual) environments to increase efficiency and accuracy: e.g. deploying a torch model in a virtual machine to isolate sub-dependencies.
+    -emotional responses: to efficiently model self-world relations and induce complex behaviours.
+    -BCI or robotics: embodiment and integration with the user and built environment.
+    -'time' slider in visualization tab.
+
+Historical projects:
+    -in the process of manifesting float, projects such as "ai-db-project", "chromaDB" and a variety of pre-made RL scripts have been uploaded in private repositories.
+    -LMstudio token injection as a proof of concept for inducing and controlling emergent behaviours.

@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2
+
+#this needs to be compiled?
+#pip-compile requirements.in
+#pip-sync requirements.txt

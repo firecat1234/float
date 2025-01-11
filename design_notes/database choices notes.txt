@@ -1,0 +1,15 @@
+Comparison: ChromaDB + PostgreSQL vs. Weaviate + SQLite
+Feature	ChromaDB + PostgreSQL	Weaviate + SQLite
+Ease of Setup	Moderate (two systems)	Easy (Weaviate + lightweight SQLite)
+Scalability	High	High for Weaviate, limited for SQLite
+Vector Search	Native in ChromaDB	Native in Weaviate
+Graph-Like Queries	JSONB/PostGIS in PostgreSQL	Native in Weaviate
+Tabular Data Handling	Robust SQL (PostgreSQL)	Basic with SQLite
+Deployment Complexity	Moderate to high	Low to moderate
+
+txtai exists as well.
+
+harmonization:
+Use PostgreSQL JSONB columns to temporarily hold embedding metadata for combined queries.
+Synchronize ChromaDB metadata with PostgreSQL graph nodes/edges periodically.
+Build unified APIs (e.g., GET /harmonized_memory) that join PostgreSQL and ChromaDB data efficiently.

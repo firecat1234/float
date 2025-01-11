@@ -1,0 +1,27 @@
+# Python files
+*.pyc
+__pycache__/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+#input
+input/
+output/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
