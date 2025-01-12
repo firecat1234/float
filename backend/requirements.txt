@@ -1,0 +1,9 @@
+#backend dependencies
+fastapi
+uvicorn
+pydantic
+celery
+redis
+sentence-transformers
+requests
+pytest

@@ -65,5 +65,5 @@ Future Goals and Directions:
     -'time' slider in visualization tab.
 
 Historical projects:
-    -in the process of manifesting float, projects such as "ai-db-project", "chromaDB" and a variety of pre-made RL scripts have been uploaded in private repositories.
-    -LMstudio token injection as a proof of concept for inducing and controlling emergent behaviours.
+    -in the process of manifesting float, projects such as "ai-db-project", "chromaDB" and a variety of pre-made RL scripts have been uploaded in private repositories. these can be used in the future if needed.
+    -LMstudio token injection as a proof of concept for inducing and controlling emergent behaviours. HIGHLY VOLATILE & ineffective.
