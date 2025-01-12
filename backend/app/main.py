@@ -8,7 +8,9 @@ from .services import MemoryManager, RAGHandler
 
 # Initialize FastAPI
 app = FastAPI()
-
+# Provide `app` as a dependency
+def get_app():
+    return app
 # Health Check
 @app.get("/health", tags=["Health"])
 def health_check():
