@@ -11,6 +11,7 @@ This document outlines the steps to set up the environment for the Float project
 - Redis (for Celery backend).
 - PostgreSQL (if using a relational database).
 - Optional: Docker for containerized deployment.
+sudo apt-get install graphviz graphviz-dev
 
 ---
 
@@ -22,11 +23,16 @@ Instead of running commands manually, the setup script automates environment ini
 
 ```bash
 # From the backend directory
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements.txt 
 ```
+### COOL SHIT !!!! PIP-TOOLS!!! CHECK THIS OUT, NOOBS
+pip install pip-tools
+pip-compile requirements.txt
+pip-sync
+
 
 Alternatively, automate this with:
 ```bash
@@ -43,6 +49,7 @@ uvicorn app.main:app --reload
 This starts the API server on `http://localhost:8000`.
 
 ---
+npm install -g @vue/cli
 
 ## Frontend Setup
 
