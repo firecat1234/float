@@ -52,6 +52,7 @@ app.state.rag_handler = rag_handler
 
 # Include routes
 app.include_router(router)
+print(app.routes)
 
 # Exception Handlers
 @app.exception_handler(Exception)
