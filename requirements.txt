@@ -1,6 +1,6 @@
 ### - frontend
 pip-tools #not sure where this should be installed for deployability but yeah
-vue-cli
+#vue-cli #this is an npm thing
 jinja2
 axios
 chart.js
