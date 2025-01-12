@@ -31,3 +31,7 @@ class EmbeddingRequest(BaseModel):
 class AugmentedResponse(BaseModel):
     response: str
     metadata: Optional[Dict[str, Any]]
+
+class MemoryUpdateRequest(BaseModel):
+    key: str
+    value: Optional[Dict[str, str]]  # Adjust the type based on expected structure

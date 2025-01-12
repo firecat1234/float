@@ -1,21 +1,33 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 from .routes import router  # Import the router
 from .config import load_config  # Import your configuration function
+from .services import MemoryManager, RAGHandler
 
+# Initialize FastAPI
 app = FastAPI()
 
-# Load configurations.
-config = load_config()
-app.state.config = config  # Attach the loaded configuration to the application
+# Health Check
+@app.get("/health", tags=["Health"])
+def health_check():
+    return {"status": "healthy"}
 
-app.include_router(router) # Include routes defined in routes.py
+# Root Route
+@app.get("/", tags=["Root"])
+def read_root():
+    return {"Hello": "World"}
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) # start the API server
+# Load configurations
+try:
+    config = load_config()
+    app.state.config = config  # Attach the loaded configuration to the application
+except Exception as e:
+    print(f"Error loading configuration: {e}")
+    raise
 
-from fastapi.middleware.cors import CORSMiddleware
-
+# Add Middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Adjust based on security requirements
@@ -24,13 +36,39 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from .services import MemoryManager, RAGHandler
+# Logging Middleware (Optional)
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    response = await call_next(request)
+    print(f"Request: {request.method} {request.url} - Status: {response.status_code}")
+    return response
 
+# Initialize services
 memory_manager = MemoryManager(config)
 rag_handler = RAGHandler(config)
 
 app.state.memory_manager = memory_manager
 app.state.rag_handler = rag_handler
 
+# Include routes
+app.include_router(router)
 
-#add a route to initialize and monitor this functionality
+# Exception Handlers
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"message": "An unexpected error occurred.", "detail": str(exc)},
+    )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={"message": "Validation error", "errors": exc.errors()},
+    )
+
+# Run the application for development
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

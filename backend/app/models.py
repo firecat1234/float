@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from typing import Any, Dict, List, Optional, Union
+
 
 class ChatRequest(BaseModel):
     message: str
