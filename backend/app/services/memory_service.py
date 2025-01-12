@@ -8,14 +8,12 @@ class MemoryService:
         self.long_term_memory = []
     
     def store(self, memory):
-        # add an element to short term memory, send to embedding function,
-        # and store in long term if appropriate.
-        # add timestamps, confidence score, data type, and expiration dates.
         self.short_term_memory.append(memory)
-        print(f"memory: {memory} stored in short term.")
-        # store in long term with embedding
-        self.long_term_memory.append(memory)
-        # TODO embed memory to long term database here.
+        print(f"Short-term memory: {memory}")
+        embedded_memory = self._embed_memory(memory)
+        self.long_term_memory.append(embedded_memory)
+        print(f"Long-term memory: {embedded_memory}")
+
 
     def retrieve_short(self):
       # return all short term memory.
@@ -31,3 +29,7 @@ class MemoryService:
       self.short_term_memory = []
       self.long_term_memory = []
       print("all memory cleared.")
+
+    def _embed_memory(self, memory):
+        # Convert memory to vector embedding
+        return {"vector": [0.1, 0.2, 0.3], "metadata": memory}

@@ -24,3 +24,10 @@ class TaskService:
     def list_tasks(self):
       # return all pending tasks.
         return self.tasks
+
+    def add_task(self, task, prerequisites=None):
+        if prerequisites and not all(p in self.tasks for p in prerequisites):
+            print(f"Cannot schedule {task}. Missing prerequisites: {prerequisites}")
+            return
+        self.tasks.append({"task": task, "prerequisites": prerequisites or []})
+        print(f"Task scheduled: {task}")

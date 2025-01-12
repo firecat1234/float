@@ -18,3 +18,16 @@ class Message(BaseModel):
   content: str = Field(description="text of the message.")
   timestamp: float = Field(description="Time the message was sent.")
   metadata: Optional[Dict[str, str]] = Field(default={}, description="any extra info.")
+
+class ObservationalTokenSchema(BaseModel):
+    token: str
+    description: Optional[str]
+    context: Optional[Dict[str, Any]]
+
+class EmbeddingRequest(BaseModel):
+    text: str
+    model: Optional[str] = "default"
+
+class AugmentedResponse(BaseModel):
+    response: str
+    metadata: Optional[Dict[str, Any]]

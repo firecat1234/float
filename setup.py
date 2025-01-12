@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="float_project",
+    name="float,
     version="0.1.0",
     description="A latent-thought based learning agent",
     author="Kai Simpson",

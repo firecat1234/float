@@ -12,3 +12,17 @@ class LLMService:
         model = model_type if model_type else self.model_type
         print(f"Generating response using model: {model}")
         return f"Response from {model} for prompt: {prompt}"
+
+    def generate_text(self, prompt: str, model_type=None):
+        model = model_type or self.model_type
+        try:
+            print(f"Generating text using {model}")
+            # Call local model or external API
+            response = f"Generated response from {model} for: {prompt}"
+            return response
+        except Exception as e:
+            print(f"Error in text generation: {e}")
+            return "Error generating response."
+    def preprocess_prompt(self, prompt: str):
+        # Insert observational tokens into the prompt
+        return f"<obs_start>{prompt}<obs_end>"

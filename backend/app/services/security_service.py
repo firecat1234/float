@@ -1,4 +1,5 @@
-# provides security functions such as encryption and hashing.
+# provides security functions such as encryption and hashing
+from cryptography.fernet import Fernet
 
 class SecurityService:
     def __init__(self, key=None):
@@ -30,3 +31,12 @@ class SecurityService:
         # Placeholder for hashing logic.
       print(f"hashing: {data}")
       return f"hashed: {data}"
+
+
+    def encrypt(self, plaintext):
+        cipher = Fernet(self.key)
+        return cipher.encrypt(plaintext.encode()).decode()
+
+    def decrypt(self, ciphertext):
+        cipher = Fernet(self.key)
+        return cipher.decrypt(ciphertext.encode()).decode()

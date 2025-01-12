@@ -1,43 +1,8 @@
 ### - frontend
 pip-tools #not sure where this should be installed for deployability but yeah
-#flask #alternative front end 
-jinja2  # For templating
-#flask-cors  # Enable CORS for the frontend-backend communication
-vue-cli  # For building Vue.js frontend (or react-scripts if React)
-d3  # For dynamic visualization (optional but useful for graphs)
-pyvis  # Backend-rendered interactive network graphs
-
-### - backend
-fastapi  # For building the API
-uvicorn  # FastAPI ASGI server
-pydantic  # Data validation and parsing
-gunicorn  # Production WSGI server (if not using uvicorn)
-celery  # Task queue
-redis  # Celery broker for task queuing
-python-dotenv  # Manage environment variables
-
-### - database
-sqlalchemy  # ORM for PostgreSQL integration
-psycopg2  # PostgreSQL database adapter
-chromadb  # Embedding store for vectorized memory
-#weaviate-client  # (Optional) If switching to Weaviate for graph + embeddings
-alembic  # For database migrations
-marshmallow  # Schema validation
-pygraphviz  # For creating graph structures
-
-### - security
-cryptography  # For AES-256 encryption and hashing
-bcrypt  # For password hashing (if user accounts are introduced)
-pyjwt  # JSON Web Token for authentication
-flask-jwt-extended  # For JWT management in Flask/FastAPI
-pyopenssl  # For HTTPS support
-
-### - miscellaneous
-prometheus-flask-exporter  # Metrics and monitoring
-apscheduler  # Background task scheduler
-pytest  # For testing
-pytest-asyncio  # Async test support
-pandas  # Data handling and processing
-networkx  # For graph creation and manipulation
-requests  # HTTP requests for external API calls
-matplotlib  # Visualization (optional, useful for debugging)
+vue-cli
+jinja2
+axios
+chart.js
+d3
+pyvis
