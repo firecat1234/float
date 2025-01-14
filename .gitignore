@@ -25,11 +25,18 @@ logs/
 # OS-specific files
 .DS_Store
 Thumbs.db
+<<<<<<< HEAD
 
+=======
+>>>>>>> 39e1a166ef925969957234516ac4c488e90c1a91
 __pycache__
 *.pyc
 *.log
 /venv
 node_modules
 dist
+<<<<<<< HEAD
 /float/data/*
+=======
+/float/data/*
+>>>>>>> 39e1a166ef925969957234516ac4c488e90c1a91
