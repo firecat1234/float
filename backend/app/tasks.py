@@ -1,9 +1,7 @@
 # contains async celery tasks
 
 from celery import Celery
-from .app.services.tool_service import ToolService
-from services.etl_tools import ETLTools
-from services.refined_services import RefinedServices
+import app.services as services
 import time
 import logging
 

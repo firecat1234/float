@@ -12,7 +12,12 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
-      DATABASE_URL: postgresql://user:pass@db:333/floatdb
+      DATABASE_URL: postgresql://user:pass@db:5432/floatdb  # Corrected DB port
+      REDIS_URL: redis://redis:6379  # Include Redis URL for the backend
+    networks:
+      - float-net
+    volumes:
+      - ./backend/logs:/app/logs  # Optional: Persist backend logs
 
   frontend:
     build:
@@ -22,11 +27,16 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+    networks:
+      - float-net
 
   redis:
     image: redis:alpine
     ports:
-      - "6380:6379"
+      - "6380:6379"  # Expose Redis on a non-default external port
+    networks:
+      - float-net
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
 
   db:
     image: postgres:13
@@ -35,4 +45,15 @@ services:
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: floatdb
     ports:
-      - "333:5432"
+      - "333:5432"  # Expose PostgreSQL on port 333 externally
+    networks:
+      - float-net
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Persist database data
+
+networks:
+  float-net:  # Custom Docker network for better isolation
+
+volumes:
+  db_data:  # Named volume for database persistence
+

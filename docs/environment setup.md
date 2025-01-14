@@ -11,12 +11,18 @@ This document outlines the steps to set up the environment for the Float project
 - Redis (for Celery backend).
 - PostgreSQL (if using a relational database).
 - Optional: Docker for containerized deployment.
-sudo apt-get install graphviz graphviz-dev
+
+curl -fsSL https://ollama.com/install.sh | sh
+
+sudo apt-get install graphviz graphviz-dev uvicorn 
+
+lm studio if you're using that needs to be running
+
 
 ---
 
 ## Backend Setup
-
+note this document has 
 ### **1. Virtual Environment Installation**
 
 Instead of running commands manually, the setup script automates environment initialization:

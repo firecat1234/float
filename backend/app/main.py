@@ -2,15 +2,19 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from .routes import router  # Import the router
-from .config import load_config  # Import your configuration function
-from .services import MemoryManager, RAGHandler
+import app.routes as routes
+import app.config as config
+import app.services as services
+
+print("App is loading :3")
 
 # Initialize FastAPI
 app = FastAPI()
+
 # Provide `app` as a dependency
 def get_app():
     return app
+
 # Health Check
 @app.get("/health", tags=["Health"])
 def health_check():
@@ -23,8 +27,9 @@ def read_root():
 
 # Load configurations
 try:
-    config = load_config()
+    config = config.load_config()  # Correctly call `load_config`
     app.state.config = config  # Attach the loaded configuration to the application
+    print("Configuration loaded successfully.")
 except Exception as e:
     print(f"Error loading configuration: {e}")
     raise
@@ -46,15 +51,23 @@ async def log_requests(request: Request, call_next):
     return response
 
 # Initialize services
-memory_manager = MemoryManager(config)
-rag_handler = RAGHandler(config)
+try:
+    print("Initializing services...")
+    memory_manager = services.MemoryManager(config)
+    print("MemoryManager initialized.")
 
-app.state.memory_manager = memory_manager
-app.state.rag_handler = rag_handler
+    rag_handler = services.RAGHandler(config)
+    print("RAGHandler initialized.")
+
+    app.state.memory_manager = memory_manager
+    app.state.rag_handler = rag_handler
+except Exception as e:
+    print(f"Error initializing services: {e}")
+    raise
 
 # Include routes
-app.include_router(router)
-print(app.routes)
+app.include_router(routes.router)
+print("Routes included:", app.routes)
 
 # Exception Handlers
 @app.exception_handler(Exception)
@@ -75,3 +88,4 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+

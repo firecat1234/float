@@ -38,7 +38,8 @@ Architecture:
             -visualization tools:
                 -chromaviewer, networkx, pyvis and pandas. 
             -pytest to validate the structure before pushing updates.
-            -LMstudio (koboldcpp and ollama as alternatives) to serve the local model.
+            -ollama to dynamically serve the local model.
+            -LM studio endpoint is possible too.
         -frontend: 
             -vue.js with potential change to react if a more complex and modular frontend is required.
             -present thoughts/tools/approvals dynamically in the UI, in a right-sidebar. select a message from float to see the process, with a persistent streaming box at the bottom to display the most recent thought.
