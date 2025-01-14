@@ -1,8 +1,4 @@
 ### - frontend
 pip-tools #not sure where this should be installed for deployability but yeah
-vue-cli
 jinja2
-axios
-chart.js
-d3
 pyvis

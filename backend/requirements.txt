@@ -13,7 +13,7 @@ flask-jwt-extended
 flask-limiter
 apscheduler
 marshmallow
-psycopg2
+psycopg2-binary
 alembic
 python-dotenv
 pytest

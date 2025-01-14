@@ -1,21 +1,8 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import './style.css' // place holder for styles
-import { createRouter, createWebHistory } from 'vue-router'
-import ChatBox from './components/ChatBox.vue'
-import VisualizationTab from './components/VisualizationTab.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import './style.css'; // Placeholder for styles
+import router from './router'; // Import the router
 
-// define routes
-const routes = [
-  {path: '/', component: ChatBox},
-  {path: '/visualization', component: VisualizationTab}
-]
-
-// initialize the vue router
-const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
-
-
-createApp(App).use(router).mount('#app')
+const app = createApp(App);
+app.use(router);
+app.mount('#app');
