@@ -1,5 +1,7 @@
-from fastapi import APIRouter, HTTPException
-import app.services as services
+from fastapi import APIRouter, HTTPException, Request
+from app.services import LLMService
+from app.models import ChatRequest, ChatResponse
+from app.schemas import MemoryUpdateRequest
 
 router = APIRouter()
 llm_service = LLMService()
@@ -39,7 +41,6 @@ async def stop_dynamic_server():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.post("/chat/", response_model=ChatResponse)
 async def chat(chat_request: ChatRequest):
     """
@@ -52,18 +53,17 @@ async def chat(chat_request: ChatRequest):
     return response
 
 @router.post("/memory/update/")
-async def update_memory(update_request: MemoryUpdateRequest):
+async def update_memory(request: Request, update_request: MemoryUpdateRequest):
     """
     Updates memory with the given key-value pair.
     """
-    result = app.state.memory_manager.update_memory(
-        {"key": update_request.key, "value": update_request.value}
-    )
+    # Use the Request object to access the app state
+    result = request.app.state.memory_manager.update_memory(update_request.dict())
     return {"status": "success", "updated": result}
 
 @router.get("/tools/")
-async def get_tools():
+async def get_tools(request: Request):
     """
     Returns the list of available tools.
     """
-    return {"tools": app.state.memory_manager.list_tools()}
+    return {"tools": request.app.state.memory_manager.list_tools()}
