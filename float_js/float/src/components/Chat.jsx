@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { memoryStore, apiWrapper } from "../utils/proxy";
+import "../styles/Chat.css";
 
-const Chat = () => {
+const Chat = ({ mode }) => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
@@ -9,17 +10,13 @@ const Chat = () => {
 
   const sendMessage = async () => {
     if (!message.trim()) return;
-    setResponse(""); // Clear previous UI
+    setResponse("");
     setError(null);
-    setLoading(true); // Start loading
-
-    console.log("Sending message:", message);
+    setLoading(true);
 
     try {
       memoryStore["last_message"] = { content: message, importance: 5 };
-      const res = await apiWrapper.chat({ message });
-
-      console.log("API Response:", res);
+      const res = await apiWrapper.chat({ message, mode });
 
       if (res.error) {
         throw new Error(res.error);
@@ -36,18 +33,20 @@ const Chat = () => {
   };
 
   return (
-    <div>
-      <h1>float</h1>
+    <div className="chat-container">
+      <h1 className="chat-header">Float AI Chat</h1>
       <input
+        className="chat-input"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         disabled={loading}
+        placeholder="Type your message..."
       />
-      <button onClick={sendMessage} disabled={loading}>
-        {loading ? "Sending..." : "Send"}
+      <button className="chat-button" onClick={sendMessage} disabled={loading}>
+        {loading ? "Sending..." : "Send Message"}
       </button>
-      {error && <p className="error">{error}</p>}
-      <p>{response}</p>
+      {error && <p className="chat-error">{error}</p>}
+      <p className="chat-response">{response}</p>
     </div>
   );
 };
