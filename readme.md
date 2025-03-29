@@ -1,10 +1,12 @@
-# Float Project
+# float Project
 
-Float is a latent-thought based learning agent designed to run on locally managed hardware with a focus on privacy. It specializes in efficient latent modeling and is augmented by external systems.
+float is a latent-thought based learning agent designed to run on locally managed hardware with a focus on privacy. It specializes in efficient latent modeling and is augmented by external systems.
+
+please know: float is still in the early stages of development. feedback, testing, and suggestions would be appreciated.
 
 ## Overview
 
-Float leverages advanced language models and a modular architecture to provide a robust platform for learning and interaction. It integrates with various tools and APIs to enhance its capabilities.
+float leverages advanced language models and a modular architecture to provide a robust platform for learning and interaction. It integrates with various tools and APIs to enhance its capabilities.
 
 ## Architecture
 
